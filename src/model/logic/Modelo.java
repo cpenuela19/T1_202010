@@ -1,5 +1,11 @@
 package model.logic;
 
+import java.io.FileReader;
+
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
+import com.sun.java.util.jar.pack.Package.File;
+
 import model.data_structures.ArregloDinamico;
 import model.data_structures.IArregloDinamico;
 
@@ -66,6 +72,22 @@ public class Modelo {
 	public String eliminar(String dato)
 	{
 		return datos.eliminar(dato);
+	}
+	
+	public int cargar(String pRutaArchivo)
+	{
+		java.io.File archivo = new File(pRutaArchivo);
+		
+		
+		JsonReader reader = new JsonReader(new FileReader(archivo));
+		reader.beginArray();
+		reader.beginObject();
+		reader.endArray();
+		reader.endObject();
+		
+		reader.nextName();
+		
+		
 	}
 
 
