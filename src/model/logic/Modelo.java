@@ -1,11 +1,14 @@
 package model.logic;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-import com.sun.java.util.jar.pack.Package.File;
 
+import jdk.internal.org.objectweb.asm.Handle;
 import model.data_structures.ArregloDinamico;
 import model.data_structures.IArregloDinamico;
 
@@ -13,12 +16,12 @@ import model.data_structures.IArregloDinamico;
  * Definicion del modelo del mundo
  *
  */
-public class Modelo {
+public class Modelo <T extends Comparable<T>>{
 	/**
 	 * Atributos del modelo del mundo
 	 */
-	private IArregloDinamico datos;
-	
+	private IArregloDinamico<T> datos;
+
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 */
@@ -26,7 +29,7 @@ public class Modelo {
 	{
 		datos = new ArregloDinamico(7);
 	}
-	
+
 	/**
 	 * Constructor del modelo del mundo con capacidad dada
 	 * @param tamano
@@ -35,7 +38,7 @@ public class Modelo {
 	{
 		datos = new ArregloDinamico(capacidad);
 	}
-	
+
 	/**
 	 * Servicio de consulta de numero de elementos presentes en el modelo 
 	 * @return numero de elementos presentes en el modelo
@@ -49,46 +52,51 @@ public class Modelo {
 	 * Requerimiento de agregar dato
 	 * @param dato
 	 */
-	public void agregar(String dato)
+	public void agregar(T dato)
 	{	
 		datos.agregar(dato);
 	}
-	
+
 	/**
 	 * Requerimiento buscar dato
 	 * @param dato Dato a buscar
 	 * @return dato encontrado
 	 */
-	public String buscar(String dato)
+	public String buscar(T dato)
 	{
-		return datos.buscar(dato);
+		return (String) datos.buscar(dato);
 	}
-	
+
 	/**
 	 * Requerimiento eliminar dato
 	 * @param dato Dato a eliminar
 	 * @return dato eliminado
 	 */
-	public String eliminar(String dato)
+	public String eliminar(T dato)
 	{
-		return datos.eliminar(dato);
-	}
-	
-	public int cargar(String pRutaArchivo)
-	{
-		java.io.File archivo = new File(pRutaArchivo);
-		
-		
-		JsonReader reader = new JsonReader(new FileReader(archivo));
-		reader.beginArray();
-		reader.beginObject();
-		reader.endArray();
-		reader.endObject();
-		
-		reader.nextName();
-		
-		
+		return (String) datos.eliminar(dato);
 	}
 
+	public void cargar(String pRutaArchivo) 
+	{
+		File archivo = new File(pRutaArchivo);
 
+		try {
+			
+			JsonReader reader = new JsonReader(new FileReader(archivo));
+			
+			while(reader.hasNext())
+			{
+					
+				reader.beginObject();
+				reader.beginArray();
+			
+			}
+		
+			reader.close();
+		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
+	} 
 }
