@@ -6,10 +6,13 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
 
 import jdk.internal.org.objectweb.asm.Handle;
 import model.data_structures.ArregloDinamico;
+import model.data_structures.ComparendoDatos;
 import model.data_structures.IArregloDinamico;
 
 /**
@@ -77,7 +80,7 @@ public class Modelo <T extends Comparable<T>>{
 		return (String) datos.eliminar(dato);
 	}
 
-	public void cargar(String pRutaArchivo) 
+	public void cargar(String pRutaArchivo, String pObjectid, String pFecha_hora, String pClaseVehi, String pTipoServ, int pInfrac, String pDesInfrac, String pLocalidad) 
 	{
 		File archivo = new File(pRutaArchivo);
 
@@ -86,11 +89,19 @@ public class Modelo <T extends Comparable<T>>{
 			JsonReader reader = new JsonReader(new FileReader(archivo));
 			
 			while(reader.hasNext())
-			{
-					
+			{					
+				reader.nextName();
+				reader.nextName();
+				reader.nextName();
+				
 				reader.beginObject();
-				reader.beginArray();
-			
+				while(reader.hasNext())
+				{
+					
+				}
+				
+				
+						
 			}
 		
 			reader.close();
