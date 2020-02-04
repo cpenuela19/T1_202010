@@ -1,5 +1,9 @@
 package model.data_structures;
 
-public interface IListaEncadenada <T extends Comparable<T>>{
+import model.logic.ComparendoDatos;
+
+public interface IListaEncadenada <T> {
+
+	void add(ComparendoDatos objetoActual);
 
 }

@@ -6,24 +6,28 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 
 import jdk.internal.org.objectweb.asm.Handle;
 import model.data_structures.ArregloDinamico;
-import model.data_structures.ComparendoDatos;
 import model.data_structures.IArregloDinamico;
+import model.data_structures.IListaEncadenada;
 
 /**
  * Definicion del modelo del mundo
  *
  */
-public class Modelo <T extends Comparable<T>>{
+public class Modelo {
 	/**
 	 * Atributos del modelo del mundo
 	 */
-	private IArregloDinamico<T> datos;
+//	private IArregloDinamico<T> datos;
+	
+	private IListaEncadenada<ComparendoDatos> lista;
 
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
@@ -87,23 +91,48 @@ public class Modelo <T extends Comparable<T>>{
 		try {
 			
 			JsonReader reader = new JsonReader(new FileReader(archivo));
+			@SuppressWarnings("deprecation")
 			
-			while(reader.hasNext())
-			{					
-				reader.nextName();
-				reader.nextName();
-				reader.nextName();
+			// Separar todo lo que necesite 
+			JsonParser separador = new JsonParser();
+			
+			//archivo completo json, separelo por objetos
+			
+			JsonObject separadorJson = (JsonObject) separador.parse(reader); 
+			
+			JsonArray comparendos = (JsonArray) separadorJson.get("features").getAsJsonArray();
+			
+			for(int i=0; i<comparendos.size(); i++)
+			{
+				//representa al objeto en version JSON
+				JsonObject objetoActual = comparendos.get(i).getAsJsonObject();
+				JsonObject propiedadesObjetoActual = objetoActual.get("properties").getAsJsonObject();
+				 
+				int objectid = propiedadesObjetoActual.get("OBJECTID").getAsInt();
 				
-				reader.beginObject();
-				while(reader.hasNext())
-				{
-					
-				}
+				//Descripcion Fecha del comparendo en formato Año\/Mes\/Día
+				 String fechaHora;
 				
+				//Tipo de vehículo 
+				 String claseVehi;
 				
-						
+				//tipo de servicio ("Particular", "Público", “Oficial”)  
+				 String tipoServ;
+				
+				//Código de la infracción cometida
+				 String infraccion;
+				
+				//Descripcion infraccion 
+				 String desInfraccion;
+				
+				//Localidad en la ciudad del comparendo
+				 String localidad;
+
+				ComparendoDatos objetoActual = new ComparendoDatos(pObjectid, pFecha_hora, pClaseVehi, pTipoServ, pInfrac, pDesInfrac, pLocalidad);
+				lista.add(objetoActual); 
+				
 			}
-		
+			
 			reader.close();
 		}
 		catch (Exception e) {

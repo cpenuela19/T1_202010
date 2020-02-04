@@ -1,9 +1,9 @@
-package model.data_structures;
+package model.logic;
 
 public class ComparendoDatos {
 	
 	//Identificador único del comparendo 
-	private String objectid;
+	private int objectid;
 	
 	//Descripcion Fecha del comparendo en formato Año\/Mes\/Día
 	private String fechaHora;
@@ -15,7 +15,7 @@ public class ComparendoDatos {
 	private String tipoServ;
 	
 	//Código de la infracción cometida
-	private int infraccion;
+	private String infraccion;
 	
 	//Descripcion infraccion 
 	private String desInfraccion;
