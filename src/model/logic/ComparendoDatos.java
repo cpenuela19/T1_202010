@@ -5,8 +5,8 @@ public class ComparendoDatos {
 	//Identificador único del comparendo 
 	private int objectid;
 	
-	//Descripcion Fecha del comparendo en formato Año\/Mes\/Día
-	private String fechaHora;
+	//Fecha del comparendo en formato Año\/Mes\/Día
+	private int fechaHora;
 	
 	//Tipo de vehículo 
 	private String claseVehi;
@@ -23,7 +23,7 @@ public class ComparendoDatos {
 	//Localidad en la ciudad del comparendo
 	private String localidad;
 
-	public ComparendoDatos(String pObjectid, String pFecha_hora, String pClaseVehi, String pTipoServ, int pInfrac, String pDesInfrac, String pLocalidad)
+	public ComparendoDatos(int pObjectid, int pFecha_hora, String pClaseVehi, String pTipoServ, String pInfrac, String pDesInfrac, String pLocalidad)
 	{
 		objectid = pObjectid;
 		fechaHora = pFecha_hora;
@@ -35,19 +35,19 @@ public class ComparendoDatos {
 		
 	}
 	
-	public String getObjectid() {
+	public int getObjectid() {
 		return objectid;
 	}
 
-	public void setObjectid(String objectid) {
+	public void setObjectid(int objectid) {
 		this.objectid = objectid;
 	}
 
-	public String getFechaHora() {
+	public int getFechaHora() {
 		return fechaHora;
 	}
 
-	public void setFechaHora(String fechaHora) {
+	public void setFechaHora(int fechaHora) {
 		this.fechaHora = fechaHora;
 	}
 
@@ -67,11 +67,11 @@ public class ComparendoDatos {
 		this.tipoServ = tipoServ;
 	}
 
-	public int getInfraccion() {
+	public String getInfraccion() {
 		return infraccion;
 	}
 
-	public void setInfraccion(int infraccion) {
+	public void setInfraccion(String infraccion) {
 		this.infraccion = infraccion;
 	}
 

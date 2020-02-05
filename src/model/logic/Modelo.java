@@ -16,25 +16,27 @@ import jdk.internal.org.objectweb.asm.Handle;
 import model.data_structures.ArregloDinamico;
 import model.data_structures.IArregloDinamico;
 import model.data_structures.IListaEncadenada;
+import model.data_structures.ListaEncadenada;
+
+import model.data_structures.Nodo;
 
 /**
  * Definicion del modelo del mundo
  *
  */
-public class Modelo {
-	/**
-	 * Atributos del modelo del mundo
-	 */
-//	private IArregloDinamico<T> datos;
-	
-	private IListaEncadenada<ComparendoDatos> lista;
+public class Modelo <T> {
+
+
+	private IArregloDinamico datos;
+
+	private IListaEncadenada<T> lista;
 
 	/**
-	 * Constructor del modelo del mundo con capacidad predefinida
+	 * Constructor del modelo del mundo 
 	 */
 	public Modelo()
 	{
-		datos = new ArregloDinamico(7);
+		lista = (IListaEncadenada<T>) new ListaEncadenada<T>();
 	}
 
 	/**
@@ -43,7 +45,7 @@ public class Modelo {
 	 */
 	public Modelo(int capacidad)
 	{
-		datos = new ArregloDinamico(capacidad);
+		datos = (IArregloDinamico) new ArregloDinamico(capacidad);
 	}
 
 	/**
@@ -52,87 +54,92 @@ public class Modelo {
 	 */
 	public int darTamano()
 	{
-		return datos.darTamano();
+		return lista.darTamanio();
 	}
 
 	/**
 	 * Requerimiento de agregar dato
 	 * @param dato
 	 */
-	public void agregar(T dato)
+	public void agregarNodo(Nodo<T> objeto)
 	{	
-		datos.agregar(dato);
+		lista.agregarNodo(objeto);
 	}
 
 	/**
-	 * Requerimiento buscar dato
-	 * @param dato Dato a buscar
+	 * Requerimiento buscar objeto
+	 * @param objeto Dato a buscar
 	 * @return dato encontrado
 	 */
-	public String buscar(T dato)
+	public T buscar(T objeto)
 	{
-		return (String) datos.buscar(dato);
+		return lista.buscar(objeto);
 	}
 
 	/**
-	 * Requerimiento eliminar dato
-	 * @param dato Dato a eliminar
-	 * @return dato eliminado
+	 * Requerimiento eliminar objeto
+	 * @param objeto  a eliminar
+	 * @return objeto eliminado
 	 */
-	public String eliminar(T dato)
+	public T eliminar(T objeto)
 	{
-		return (String) datos.eliminar(dato);
+		return lista.eliminar(objeto);
 	}
 
-	public void cargar(String pRutaArchivo, String pObjectid, String pFecha_hora, String pClaseVehi, String pTipoServ, int pInfrac, String pDesInfrac, String pLocalidad) 
+	@SuppressWarnings("unchecked")
+	public void cargar(String pRutaArchivo) 
 	{
 		File archivo = new File(pRutaArchivo);
 
 		try {
-			
+
+			//leer archivo
 			JsonReader reader = new JsonReader(new FileReader(archivo));
 			@SuppressWarnings("deprecation")
-			
-			// Separar todo lo que necesite 
+
+			// Separar todo lo que necesite en el Json 
 			JsonParser separador = new JsonParser();
-			
-			//archivo completo json, separelo por objetos
-			
+
+
+			//archivo completo json, separado por objetos			
 			JsonObject separadorJson = (JsonObject) separador.parse(reader); 
-			
+			@SuppressWarnings("deprecation")
+
+			// arreglo de comparendo obtenidos en el archivo json
 			JsonArray comparendos = (JsonArray) separadorJson.get("features").getAsJsonArray();
-			
+
 			for(int i=0; i<comparendos.size(); i++)
 			{
 				//representa al objeto en version JSON
 				JsonObject objetoActual = comparendos.get(i).getAsJsonObject();
 				JsonObject propiedadesObjetoActual = objetoActual.get("properties").getAsJsonObject();
-				 
-				int objectid = propiedadesObjetoActual.get("OBJECTID").getAsInt();
-				
-				//Descripcion Fecha del comparendo en formato Año\/Mes\/Día
-				 String fechaHora;
-				
-				//Tipo de vehículo 
-				 String claseVehi;
-				
-				//tipo de servicio ("Particular", "Público", “Oficial”)  
-				 String tipoServ;
-				
-				//Código de la infracción cometida
-				 String infraccion;
-				
-				//Descripcion infraccion 
-				 String desInfraccion;
-				
-				//Localidad en la ciudad del comparendo
-				 String localidad;
 
-				ComparendoDatos objetoActual = new ComparendoDatos(pObjectid, pFecha_hora, pClaseVehi, pTipoServ, pInfrac, pDesInfrac, pLocalidad);
-				lista.add(objetoActual); 
+				int objectid = propiedadesObjetoActual.get("OBJECTID").getAsInt();
+
+				// Fecha del comparendo en formato Año\/Mes\/Día
+				int fechaHora = propiedadesObjetoActual.get("FECHA_HORA").getAsInt();
+
+				//Tipo de vehículo 
+				String claseVehi = propiedadesObjetoActual.get("CLASE_VEHI").getAsString();
+
+				//tipo de servicio ("Particular", "Público", “Oficial”)  
+				String tipoServ = propiedadesObjetoActual.get("TIPO_SERVI").getAsString();
+
+				//Código de la infracción cometida
+				String infraccion = propiedadesObjetoActual.get("INFRACCION").getAsString();
+
+				//Descripcion infraccion 
+				String desInfraccion = propiedadesObjetoActual.get("DES_INFRAC").getAsString();
+
+				//Localidad en la ciudad del comparendo
+				String localidad = propiedadesObjetoActual.get("LOCALIDAD").getAsString();
 				
+				ComparendoDatos nuevoDato = new ComparendoDatos(objectid, fechaHora, claseVehi, tipoServ, infraccion, desInfraccion, localidad);
+				Nodo<ComparendoDatos> nodo = new Nodo<ComparendoDatos>(nuevoDato);
+				lista.agregarNodo((Nodo<T>) nodo); 
+
 			}
-			
+
 			reader.close();
 		}
 		catch (Exception e) {
