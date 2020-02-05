@@ -4,29 +4,46 @@ import model.logic.ComparendoDatos;
 
 public class ListaEncadenada <T> implements IListaEncadenada<T>
 {
-
-
-	@Override
+	
+	
+	private Nodo<T> lista;
+	
+	private int listSize;
+	
+	//lista inicada como vacia 
+	public ListaEncadenada()
+	{
+		lista = null;
+	}
+	
+	//objeto a agregar
+	public ListaEncadenada(T item)
+	{
+		lista = new Nodo<T>(item);
+	}
+	
+	
+//Tamaño actual de la lista
 	public int darTamanio() {
-		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 
-	@Override
+	//agregar un nodo a la lista
 	public void agregarNodo(Nodo<T> objetoActual) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
-	public T buscar(T objeto) {
-		// TODO Auto-generated method stub
+	//buscar un nodo de la lista
+	public Nodo<T>  buscar(int objeto) {
+		
 		return null;
 	}
 
-	@Override
-	public T eliminar(T objeto) {
-		// TODO Auto-generated method stub
+	//eliminar un nodo de la lista
+	public Nodo<T> eliminar(int objeto) {
+		
 		return null;
 	}
 

@@ -5,12 +5,12 @@ import model.logic.ComparendoDatos;
 public interface IListaEncadenada <T> {
 
 
-	int darTamanio();
+	public int darTamanio();
 
 	public void agregarNodo(Nodo<T> objeto);
 
-	T buscar(T objeto);
+	public Nodo<T> buscar(int pos);
 
-	T eliminar(T objeto);
+	public Nodo<T> eliminar(int pos);
 
 }

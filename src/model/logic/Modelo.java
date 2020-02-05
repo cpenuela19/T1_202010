@@ -68,25 +68,26 @@ public class Modelo <T> {
 
 	/**
 	 * Requerimiento buscar objeto
-	 * @param objeto Dato a buscar
+	 * @param objeto dado a buscar
 	 * @return dato encontrado
 	 */
-	public T buscar(T objeto)
+	public Nodo<T> buscar(int pos)
 	{
-		return lista.buscar(objeto);
+		return lista.buscar(pos);
 	}
 
 	/**
 	 * Requerimiento eliminar objeto
-	 * @param objeto  a eliminar
+	 * @param posicion del objeto a eliminar
 	 * @return objeto eliminado
 	 */
-	public T eliminar(T objeto)
+	public Nodo<T> eliminar(int pos)
 	{
-		return lista.eliminar(objeto);
+		return lista.eliminar(pos);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
+	
 	public void cargar(String pRutaArchivo) 
 	{
 		File archivo = new File(pRutaArchivo);
@@ -95,16 +96,13 @@ public class Modelo <T> {
 
 			//leer archivo
 			JsonReader reader = new JsonReader(new FileReader(archivo));
-			@SuppressWarnings("deprecation")
-
 			// Separar todo lo que necesite en el Json 
 			JsonParser separador = new JsonParser();
 
 
 			//archivo completo json, separado por objetos			
 			JsonObject separadorJson = (JsonObject) separador.parse(reader); 
-			@SuppressWarnings("deprecation")
-
+			
 			// arreglo de comparendo obtenidos en el archivo json
 			JsonArray comparendos = (JsonArray) separadorJson.get("features").getAsJsonArray();
 
