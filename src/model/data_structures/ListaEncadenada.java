@@ -6,20 +6,20 @@ public class ListaEncadenada <T> implements IListaEncadenada<T>
 {
 	
 	
-	private Nodo<T> lista;
+	private Nodo<T> primerObj;
 	
 	private int listSize;
 	
 	//lista inicada como vacia 
 	public ListaEncadenada()
 	{
-		lista = null;
+		primerObj = null;
 	}
 	
 	//objeto a agregar
 	public ListaEncadenada(T item)
 	{
-		lista = new Nodo<T>(item);
+		primerObj = new Nodo<T>(item);
 		listSize ++;
 	}
 	
@@ -31,21 +31,50 @@ public class ListaEncadenada <T> implements IListaEncadenada<T>
 	}
 
 	//agregar un nodo a la lista
-	public void agregarNodo(T objetoActual)
+	public void agregarObj(T nuevoObj)
 	{
+		if(primerObj == null)
+			agregarNodoAlInicio(nuevoObj);
+		else 
+			agregarNodoAlFinal(nuevoObj);
+		
+		listSize++;
 		
 	}
 
+	@SuppressWarnings("unchecked")
+	private void agregarNodoAlInicio(T pObj)
+	{
+		if(primerObj != null)
+		{
+			((Nodo<T>) pObj).setSiguiente(primerObj);
+			primerObj = (Nodo<T>) pObj;
+		}
+		else 
+			primerObj = (Nodo<T>) pObj;
+			}
+	@SuppressWarnings("unchecked")
+	private void agregarNodoAlFinal(T pObj)
+	{
+		Nodo<T> actual = primerObj;
+		
+		while(primerObj.darSiguiente() != null)
+		{
+			actual = actual.darSiguiente();
+		}
+		actual.setSiguiente((Nodo<T>) pObj);		
+	}
+	
 	//buscar un nodo de la lista
-	public T  buscar(int objeto) {
+	public T  buscarPorId(int objeto) {
 		
 		return null;
 	}
 
 	//eliminar un nodo de la lista
-	public T eliminar(int objeto) {
+	public void eliminar(T objeto) {
 		
-		return null;
+	
 	}
 
 	

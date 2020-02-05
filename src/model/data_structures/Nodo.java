@@ -3,25 +3,25 @@ package model.data_structures;
 // Clase donde se almacenará la información de los elementos (genéricos) de la lista.
 public class Nodo<T> {
 	
-	private Nodo<T> nodoSiguiente;
+	private Nodo<T> actual;
 	
 	//tipo de dato que va a contener el nodo
 	private T objeto;
 	
 	public Nodo(T pObjeto){
 		
-		nodoSiguiente = null;
+		actual = null;
 		objeto=pObjeto;
 	}
 	
 	public Nodo<T> darSiguiente()
 	{
-		return nodoSiguiente;
+		return actual;
 	}
 	
-	public void miSiguiente(Nodo<T> tipo)
+	public void setSiguiente(Nodo<T> siguiente)
 	{
-		nodoSiguiente = tipo;
+		actual = siguiente;
 	}
 	
 	public T getObjeto()

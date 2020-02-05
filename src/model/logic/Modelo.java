@@ -61,9 +61,9 @@ public class Modelo  {
 	 * Requerimiento de agregar dato
 	 * @param dato
 	 */
-	public void agregar(ComparendoDatos objeto)
+	public void agregarObj(ComparendoDatos objeto)
 	{	
-		lista.agregarNodo(objeto);
+		lista.agregarObj(objeto);
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class Modelo  {
 	 */
 	public ComparendoDatos buscar(int objecId)
 	{
-		return lista.buscar(objecId);
+		return lista.buscarPorId(objecId);
 	}
 
 	/**
@@ -81,9 +81,9 @@ public class Modelo  {
 	 * @param posicion del objeto a eliminar
 	 * @return objeto eliminado
 	 */
-	public Datos eliminar(Datos pos)
+	public void eliminar(ComparendoDatos pos)
 	{
-		return lista.eliminar(pos);
+		
 	}
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
@@ -132,10 +132,10 @@ public class Modelo  {
 				//Localidad en la ciudad del comparendo
 				String localidad = propiedadesObjetoActual.get("LOCALIDAD").getAsString();
 				
-				ComparendoDatos nuevoDato = new ComparendoDatos(objectid, fechaHora, claseVehi, tipoServ, infraccion, desInfraccion, localidad);
-				ComparendoDatos dato = new Nodo<ComparendoDatos>(nuevoDato);
-				lista.agregarNodo((Nodo<T>) nodo); 
-
+				ComparendoDatos nuevoObj = new ComparendoDatos(objectid, fechaHora, claseVehi, 
+						tipoServ, infraccion, desInfraccion, localidad);
+				
+				lista.agregarObj(nuevoObj);
 			}
 
 			reader.close();
