@@ -7,10 +7,10 @@ public interface IListaEncadenada <T> {
 
 	public int darTamanio();
 
-	public void agregarNodo(Nodo<T> objeto);
+	public void agregarNodo(T objeto);
 
-	public Nodo<T> buscar(int pos);
+	public T buscar(T pos);
 
-	public Nodo<T> eliminar(int pos);
+	public T eliminar(T pos);
 
 }

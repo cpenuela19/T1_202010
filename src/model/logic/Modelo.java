@@ -24,19 +24,19 @@ import model.data_structures.Nodo;
  * Definicion del modelo del mundo
  *
  */
-public class Modelo <T> {
+public class Modelo  {
 
 
 	private IArregloDinamico datos;
 
-	private IListaEncadenada<T> lista;
+	private IListaEncadenada<ComparendoDatos> lista;
 
 	/**
 	 * Constructor del modelo del mundo 
 	 */
 	public Modelo()
 	{
-		lista = (IListaEncadenada<T>) new ListaEncadenada<T>();
+		lista = new ListaEncadenada<ComparendoDatos>();
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class Modelo <T> {
 	 */
 	public Modelo(int capacidad)
 	{
-		datos = (IArregloDinamico) new ArregloDinamico(capacidad);
+		datos = new ArregloDinamico(capacidad);
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class Modelo <T> {
 	 * Requerimiento de agregar dato
 	 * @param dato
 	 */
-	public void agregarNodo(Nodo<T> objeto)
+	public void agregar(ComparendoDatos objeto)
 	{	
 		lista.agregarNodo(objeto);
 	}
@@ -71,9 +71,9 @@ public class Modelo <T> {
 	 * @param objeto dado a buscar
 	 * @return dato encontrado
 	 */
-	public Nodo<T> buscar(int pos)
+	public ComparendoDatos buscar(int objecId)
 	{
-		return lista.buscar(pos);
+		return lista.buscar(objecId);
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class Modelo <T> {
 	 * @param posicion del objeto a eliminar
 	 * @return objeto eliminado
 	 */
-	public Nodo<T> eliminar(int pos)
+	public Datos eliminar(Datos pos)
 	{
 		return lista.eliminar(pos);
 	}
@@ -133,7 +133,7 @@ public class Modelo <T> {
 				String localidad = propiedadesObjetoActual.get("LOCALIDAD").getAsString();
 				
 				ComparendoDatos nuevoDato = new ComparendoDatos(objectid, fechaHora, claseVehi, tipoServ, infraccion, desInfraccion, localidad);
-				Nodo<ComparendoDatos> nodo = new Nodo<ComparendoDatos>(nuevoDato);
+				ComparendoDatos dato = new Nodo<ComparendoDatos>(nuevoDato);
 				lista.agregarNodo((Nodo<T>) nodo); 
 
 			}

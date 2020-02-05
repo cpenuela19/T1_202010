@@ -20,29 +20,30 @@ public class ListaEncadenada <T> implements IListaEncadenada<T>
 	public ListaEncadenada(T item)
 	{
 		lista = new Nodo<T>(item);
+		listSize ++;
 	}
 	
 	
 //Tamaño actual de la lista
 	public int darTamanio() {
 		
-		return 0;
+		return listSize;
 	}
 
 	//agregar un nodo a la lista
-	public void agregarNodo(Nodo<T> objetoActual) {
-		
+	public void agregarNodo(T objetoActual)
+	{
 		
 	}
 
 	//buscar un nodo de la lista
-	public Nodo<T>  buscar(int objeto) {
+	public T  buscar(int objeto) {
 		
 		return null;
 	}
 
 	//eliminar un nodo de la lista
-	public Nodo<T> eliminar(int objeto) {
+	public T eliminar(int objeto) {
 		
 		return null;
 	}
