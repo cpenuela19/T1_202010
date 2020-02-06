@@ -1,6 +1,6 @@
 package model.logic;
 
-public class ComparendoDatos {
+public class ComparendoDatos  {
 	
 	//Identificador único del comparendo 
 	private int objectid;
@@ -91,5 +91,13 @@ public class ComparendoDatos {
 		this.localidad = localidad;
 	}
 	
+	public boolean compararPorId(int id)
+	{
+		if ((objectid - id)==0)
+		{
+			return true;
+		}
+			return false;
+	}
 	
 }

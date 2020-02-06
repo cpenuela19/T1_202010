@@ -73,7 +73,7 @@ public class Modelo  {
 	 */
 	public ComparendoDatos buscar(int objecId)
 	{
-		return lista.buscarPorId(objecId);
+		return null;
 	}
 
 	/**
